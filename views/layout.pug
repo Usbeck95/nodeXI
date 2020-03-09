@@ -1,7 +1,28 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src='/javascripts/nQuery.js')
+    body
+        header
+            nav
+                ul
+                    li
+                        a(href="/") Home
+                    li
+                        a(href="/country") Select Country
+                    li
+                        a(href="/countryData") Register Country
+                    li
+                        a(href="/langcont") Languages/Continent
+                    li
+                        a(href="/langrankall") Rank Languages
+                    li
+                        a(href="/langrankone") Rank One Language
+                    li
+                        a(href="cntrycont") Countries/Continent
+                    li
+                        a(href="/namesakes") Twin Cities
+        main
+            block content
