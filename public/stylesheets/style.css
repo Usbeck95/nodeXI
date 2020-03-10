@@ -19,7 +19,7 @@ header nav ul li {
     padding: 3px;
 }
 main {
-    padding: 50px;
+    padding: 1em;
 }
 table, td {
     border: 1px solid blue;
@@ -34,3 +34,19 @@ td {
 .col_num {
     text-align: right;
 }
+#continents, #countries, #cities {
+    float: left;
+    margin: 1em 1em 0 0;
+    padding: 3px;
+    width: 30%;
+}
+#continents {
+    border: 1px solid red;
+}
+#countries {
+    border: 1px solid green;
+}
+#cities {
+    border: 1px solid blue;
+}
+

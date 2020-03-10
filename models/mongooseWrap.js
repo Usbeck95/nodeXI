@@ -4,8 +4,8 @@
  */
 const mongoose = require('mongoose');
 
-mongoose.set('debug', true);
-mongoose.set('debug', { color: false });
+// mongoose.set('debug', true);
+// mongoose.set('debug', { color: false });
 
 const conparam = {
     useNewUrlParser: true,
