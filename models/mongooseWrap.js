@@ -4,13 +4,14 @@
  */
 const mongoose = require('mongoose');
 
-// mongoose.set('debug', true);
-// mongoose.set('debug', { color: false });
+mongoose.set('debug', true);
+mongoose.set('debug', { color: false });
 
 const conparam = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
 };
 
 exports.retrieve = async function(url, dbn, obj, query, sort) {
@@ -32,9 +33,11 @@ exports.upsert = async function(url, dbn, obj, query, chk) {
     const constr = `mongodb://${url}:27017/${dbn}`;
     await mongoose.connect(constr, conparam);
     const db = mongoose.connection;
+    let newquery = query.toObject();        // from SO, the necessity
+    delete newquery._id;                    // must be a mongooseerror
     let stuff = null;
     try {
-        stuff = await obj.findOneAndUpdate(chk, {"$set": query}, {upsert: true});
+        stuff = await obj.findOneAndUpdate(chk, query, {upsert: true});
     } catch(err) {
         console.log(error);
     } finally {

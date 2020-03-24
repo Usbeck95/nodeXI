@@ -1,12 +1,14 @@
 "use strict";
 const mon = require("./mongooseWrap");
 const Country = require("./Country");
+const dbServer = "localhost";
+const dbName = "world";
 
 exports.getCountries = async function (que, sort) {
     if (sort === null)
         sort = {sort: {name: 1}};
     try {
-        let cs = await mon.retrieve("localhost", "world", Country, que, sort);
+        let cs = await mon.retrieve(dbServer, dbName, Country, que, sort);
         return cs;
     } catch (e) {
         console.log(e);
@@ -34,7 +36,7 @@ exports.postCountry = async function (req) {
     });
     if (req.body.localname === "") country.localname = country.name;
     try {
-        let cs = await mon.upsert("localhost", "world", Country, country, chk);
+        let cs = await mon.upsert(dbServer, dbName, Country, country, chk);
         return;
     } catch (e) {
         console.log(e);

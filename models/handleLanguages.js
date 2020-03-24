@@ -1,10 +1,12 @@
 "use strict";
 const mon = require("./mongooseWrap");
 const CountryLanguage = require("./CountryLanguage");
+const dbServer = "localhost";
+const dbName = "world";
 
 exports.getLanguages = async function (que, sort) {
     try {
-        let cs = await mon.retrieve("localhost", "world", CountryLanguage, que, sort);
+        let cs = await mon.retrieve(dbServer, dbName, CountryLanguage, que, sort);
         return cs;
     } catch (e) {
         console.log(e);

@@ -1,10 +1,12 @@
 "use strict";
 const mon = require("./mongooseWrap");
 const City = require("./City");
+const dbServer = "localhost";
+const dbName = "world";
 
 exports.getCities = async function (que, sort) {
     try {
-        let cs = await mon.retrieve("localhost", "world", City, que, sort);
+        let cs = await mon.retrieve(dbServer, dbName, City, que, sort);
         return cs;
     } catch (e) {
         console.log(e);
