@@ -1,9 +1,30 @@
+"use strict";
 const mongoose = require("mongoose");
+const validate = require('mongoose-validator');
 mongoose.set('debug', true);
 mongoose.set('debug', { color: false });
 
+var codeValidator = [
+  validate({
+    validator: 'isLength',
+    arguments: [3],
+    message: 'Name should be 3 characters'
+  }),
+  validate({
+    validator: 'matches',
+    arguments: '/[A-Z][A-Z][A-Z]/',
+    message: 'Name should contain alphabetic characters only'
+  })
+];
+
 const countrySchema = mongoose.Schema({
-    code: String,
+    code: {
+        type: String,
+        required: true,
+        uppercase: true,
+        unique: true,
+        validate: codeValidator
+    },
     name: String,
     continent: String,
     region: String,

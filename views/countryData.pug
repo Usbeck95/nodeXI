@@ -21,7 +21,7 @@ block content
                 tr
                     td.col_l Continent
                     td
-                        select(name='continent')
+                        select(name='continent' required)
                             each continent in continents
                                 option #{continent.name}
                 tr
@@ -55,7 +55,7 @@ block content
                 tr
                     td.col_l Government Form
                     td
-                        select(name='governmentform')
+                        select(name='governmentform' required)
                             each governmentform in governmentforms
                                 option #{governmentform.name}
                 tr
