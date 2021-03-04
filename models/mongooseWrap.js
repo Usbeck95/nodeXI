@@ -14,10 +14,27 @@ const conparam = {
     useCreateIndex: true
 };
 
-exports.retrieve = async function(url, dbn, obj, query, sort) {
+const connect = async function(url, dbn) {
     const constr = `mongodb://${url}:27017/${dbn}`;
     await mongoose.connect(constr, conparam);
-    const db = mongoose.connection;
+    return mongoose.connection;
+}
+
+exports.distinct = async function(url, dbn, obj, query, sort) {
+    const db = await connect(url,dbn);
+    let stuff = [];
+    try {
+        stuff = await obj.distinct(query);
+    } catch(err) {
+        console.log(error);
+    } finally {
+        db.close();
+        return stuff;
+    }
+}
+
+exports.retrieve = async function(url, dbn, obj, query, sort) {
+    const db = await connect(url,dbn);
     let stuff = null;
     try {
         stuff = await obj.find(query, null, sort);
@@ -30,9 +47,7 @@ exports.retrieve = async function(url, dbn, obj, query, sort) {
 }
 
 exports.upsert = async function(url, dbn, obj, query, chk) {
-    const constr = `mongodb://${url}:27017/${dbn}`;
-    await mongoose.connect(constr, conparam);
-    const db = mongoose.connection;
+    const db = await connect(url,dbn);
     let newquery = query.toObject();        // from SO, the necessity
     delete newquery._id;                    // must be a mongooseerror
     let stuff = null;
